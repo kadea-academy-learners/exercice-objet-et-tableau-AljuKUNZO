@@ -12,17 +12,16 @@ La fonction doit retourner un objet contenant ces trois propriétés :
     - estConnecte (boolean)
 */
 
-function createUser(nom, age, estConnecte) {
+function createUser(nom, age, estConnecté) {
     return {
-        nom: nom,
-        age: age,
-        estConnecte: estConnecte
+       nom,
+        age,
+        estConnecté
     };
 
 
 }
 
-module.exports = {
-    createUser,
-};
+
+module.exports = createUser;
 

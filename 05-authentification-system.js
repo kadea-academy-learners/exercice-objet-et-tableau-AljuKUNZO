@@ -21,56 +21,48 @@
 const baseDeDonnees = [];
 
 function signUp(nom, email, password, confirmPassword) {
-	// Vérifie si l'email existe déjà
-	const utilisateurExistant = baseDeDonnees.find(
-		(user) => user.email === email
-	);
-	if (utilisateurExistant) {
-		return "Erreur : cet email est déjà utilisé.";
-	}
+  // Vérifie si l'email existe déjà
+  const existe = baseDeDonnees.find(u => u.email === email);
+  if (existe) {
+    return "Erreur: cet email existe déjà";
+  }
 
-	// Vérifie si les mots de passe correspondent
-	if (password !== confirmPassword) {
-		return "Erreur : les mots de passe ne correspondent pas.";
-	}
+  // Vérifie si les mots de passe correspondent
+  if (password !== confirmPassword) {
+    return "Erreur: les mots de passe ne correspondent pas";
+  }
 
-	// Crée un nouvel utilisateur avec un id unique
-	const nouvelUtilisateur = {
-		id: baseDeDonnees.length + 1,
-		nom: nom,
-		email: email,
-		password: password,
-		estConnecte: false,
-		estBloque: false,
-	};
+  // Crée un nouvel utilisateur
+  const nouvelUtilisateur = {
+    id: baseDeDonnees.length + 1,
+    nom,
+    email,
+    password,
+    estConnecte: false,
+    estBloque: false
+  };
 
-	// Ajoute dans la base de données
-	baseDeDonnees.push(nouvelUtilisateur);
-
-	return nouvelUtilisateur;
+  baseDeDonnees.push(nouvelUtilisateur);
+  return nouvelUtilisateur; // on retourne l'objet, pas une chaîne
 }
 
 function login(email, password) {
-	// Recherche de l'utilisateur
-	const utilisateur = baseDeDonnees.find((user) => user.email === email);
+  const utilisateur = baseDeDonnees.find(u => u.email === email);
 
-	if (!utilisateur) {
-		return "Erreur : utilisateur non trouvé.";
-	}
+  if (!utilisateur) {
+    return "Erreur: utilisateur non trouvé";
+  }
 
-	// Vérifie le mot de passe
-	if (utilisateur.password !== password) {
-		return "Erreur : mot de passe incorrect.";
-	}
+  if (utilisateur.password !== password) {
+    return "Erreur: mot de passe incorrect";
+  }
 
-	// Vérifie si l'utilisateur est bloqué
-	if (utilisateur.estBloque) {
-		return "Erreur : cet utilisateur est bloqué.";
-	}
+  if (utilisateur.estBloque) {
+    return "Erreur: utilisateur bloqué";
+  }
 
-	// Connecte l'utilisateur
-	utilisateur.estConnecte = true;
-	return utilisateur;
+  utilisateur.estConnecte = true;
+  return utilisateur; // retourne l'objet
 }
 
 module.exports = { baseDeDonnees, signUp, login };

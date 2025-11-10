@@ -4,25 +4,19 @@
 // - retourne un message "Réussi" si la moyenne est >= 10, sinon "Échoué"
 
 function averageNote(notes) {
-	if (notes.length === 0) {
-		return "Aucune note fournie";
-	}
-	let somme = 0;
-	for (let i = 0; i < notes.length; i++) {
-		somme += notes[i];
-	}
-	let moyenne = somme / notes.length;
+  if (notes.length === 0) {
+    return "Échoué";
+  }
 
-	if (moyenne >= 10) {
-		return "Réussi";
-	} else {
-		return "Échoué";
-	}
+  const moyenne = notes.reduce((a, b) => a + b, 0) / notes.length;
+
+  if (moyenne < 10) {
+    return "Échoué";
+  } else if (moyenne >= 10 && moyenne <= 15) {
+    return "Réussi";
+  } else {
+    return "Excellent";
+  }
 }
 
-module.exports = {
-	averageNote,
-};
-
-
-
+module.exports = averageNote;

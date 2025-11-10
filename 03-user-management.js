@@ -5,17 +5,13 @@
 // - estAdmin (boolean)
 // La fonction doit retourner un tableau contenant les noms des utilisateurs qui sont admin.
 
-function whoIsAdmin() {
-	const admins = utilisateurs
-		.filter(user => user.estAdmin === true)
-		.map(user => user.nom);
-
-	return admins;
+function whoIsAdmin(utilisateurs) {
+	return utilisateurs
+    .filter(user => user.estAdmin === true)
+    .map(user => user.nom);
 
 }
 
-module.exports = {
-	whoIsAdmin,
-};
+module.exports = whoIsAdmin;
 
 
