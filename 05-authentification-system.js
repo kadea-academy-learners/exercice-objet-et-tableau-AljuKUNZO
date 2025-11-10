@@ -21,11 +21,56 @@
 const baseDeDonnees = [];
 
 function signUp(nom, email, password, confirmPassword) {
-	
+	// Vérifie si l'email existe déjà
+	const utilisateurExistant = baseDeDonnees.find(
+		(user) => user.email === email
+	);
+	if (utilisateurExistant) {
+		return "Erreur : cet email est déjà utilisé.";
+	}
+
+	// Vérifie si les mots de passe correspondent
+	if (password !== confirmPassword) {
+		return "Erreur : les mots de passe ne correspondent pas.";
+	}
+
+	// Crée un nouvel utilisateur avec un id unique
+	const nouvelUtilisateur = {
+		id: baseDeDonnees.length + 1,
+		nom: nom,
+		email: email,
+		password: password,
+		estConnecte: false,
+		estBloque: false,
+	};
+
+	// Ajoute dans la base de données
+	baseDeDonnees.push(nouvelUtilisateur);
+
+	return nouvelUtilisateur;
 }
 
-function login() {
-	
+function login(email, password) {
+	// Recherche de l'utilisateur
+	const utilisateur = baseDeDonnees.find((user) => user.email === email);
+
+	if (!utilisateur) {
+		return "Erreur : utilisateur non trouvé.";
+	}
+
+	// Vérifie le mot de passe
+	if (utilisateur.password !== password) {
+		return "Erreur : mot de passe incorrect.";
+	}
+
+	// Vérifie si l'utilisateur est bloqué
+	if (utilisateur.estBloque) {
+		return "Erreur : cet utilisateur est bloqué.";
+	}
+
+	// Connecte l'utilisateur
+	utilisateur.estConnecte = true;
+	return utilisateur;
 }
 
 module.exports = { baseDeDonnees, signUp, login };
